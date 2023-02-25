@@ -1,0 +1,6 @@
+ignore/**/*
+trash/**/*
+/log/**/*
+/**/*.ignore*
+.env
+!.gitkeep

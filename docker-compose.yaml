@@ -1,0 +1,50 @@
+version: '3.7'
+
+volumes:
+  certs:
+    external: false
+  vhost:
+    external: false
+  html:
+    external: false
+  acme:
+    external: false
+
+networks:
+  inbound:
+    name: inbound
+    external: false
+
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginxproxy/nginx-proxy:1.0
+    restart: unless-stopped
+    volumes:
+      - ./log:/log:rw
+      - certs:/etc/nginx/certs:rw
+      - vhost:/etc/nginx/vhost.d:rw
+      - html:/usr/share/nginx/html:rw
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - inbound
+    env_file:
+      - .env
+    ports:
+      - '80:80'
+      - '443:443'
+
+  nginx-proxy-acme:
+    container_name: nginx-proxy-acme
+    image: nginxproxy/acme-companion:2.2
+    restart: unless-stopped
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - vhost:/etc/nginx/vhost.d:rw
+      - html:/usr/share/nginx/html:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh:rw
+    networks:
+      - inbound
+    env_file:
+      - .env
