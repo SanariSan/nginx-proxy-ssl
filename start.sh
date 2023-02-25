@@ -78,7 +78,7 @@ createNetworkOrSkip() {
 }
 
 startNginxContainer() {
-    if [ $(docker ps -aq -f name='^nginx-proxy$') ]; then
+    if [[ -n $(docker ps -aq -f name='^nginx-proxy$' -f status=running) ]]; then
         echo "Container nginx-proxy is already running"
         return
     fi
@@ -89,7 +89,7 @@ startNginxContainer() {
 }
 
 startAcmeContainer() {
-    if [ $(docker ps -aq -f name='^nginx-proxy-acme$') ]; then
+    if [[ -n $(docker ps -aq -f name='^nginx-proxy-acme$' -f status=running) ]]; then
         echo "Container nginx-proxy-acme is already running"
         return
     fi
@@ -102,7 +102,7 @@ startAcmeContainer() {
 # ------------------------------------------------------------
 
 stopNginxContainer() {
-    if [ ! $(docker ps -aq -f name='^nginx-proxy$') ]; then
+    if [[ -z $(docker ps -aq -f name='^nginx-proxy$' -f status=running) ]]; then
         echo "Container nginx-proxy is already stopped"
         return
     fi
@@ -111,7 +111,7 @@ stopNginxContainer() {
 }
 
 stopAcmeContainer() {
-    if [ ! $(docker ps -aq -f name='^nginx-proxy-acme$') ]; then
+    if [[ -z $(docker ps -aq -f name='^nginx-proxy-acme$' -f status=running) ]]; then
         echo "Container nginx-proxy-acme is already stopped"
         return
     fi
@@ -257,8 +257,8 @@ $(magentaprint 'Containers menu')
 
 Containers status:
 
-$([ $(docker ps -aq -f name='^nginx-proxy$') ] && greenprint '●' || redprint '●') nginx-proxy
-$([ $(docker ps -aq -f name='^nginx-proxy-acme$') ] && greenprint '●' || redprint '●') nginx-proxy-acme
+$([[ -n $(docker ps -aq -f name='^nginx-proxy$' -f status=running) ]] && greenprint '●' || redprint '●') nginx-proxy
+$([[ -n $(docker ps -aq -f name='^nginx-proxy-acme$' -f status=running) ]] && greenprint '●' || redprint '●') nginx-proxy-acme
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
