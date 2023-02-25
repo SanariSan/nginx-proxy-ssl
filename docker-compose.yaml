@@ -44,6 +44,8 @@ services:
       - html:/usr/share/nginx/html:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - acme:/etc/acme.sh:rw
+    environment:
+      NGINX_PROXY_CONTAINER: 'nginx-proxy'
     networks:
       - inbound
     env_file:
