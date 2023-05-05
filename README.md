@@ -72,7 +72,7 @@ sudo systemctl stop apache2
 1. Clone this repo `git clone https://github.com/SanariSan/nginx-proxy-ssl`
 2. Cd into directory `cd nginx-proxy-ssl`
 3. Make script executable `chmod 755 ./start.sh`
-4. Copy rename .env.copy to .env and replace values with your own, use **nano** or other editor `nano ./start.sh`
+4. Copy rename .env.copy to .env and replace values with your own, use **nano** or other editor `nano ./env`
 5. Run script with `/bin/bash ./start.sh`
 6. Or just run `docker-compose up --build --detach --force-recreate` for oneline setup
 
