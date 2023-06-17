@@ -107,7 +107,7 @@ stopNginxContainer() {
         return
     fi
     echo "Stopping nginx-proxy container"
-    docker container stop nginx-proxy
+    docker container rm -f nginx-proxy
 }
 
 stopAcmeContainer() {
@@ -116,7 +116,7 @@ stopAcmeContainer() {
         return
     fi
     echo "Stopping nginx-proxy-acme container"
-    docker container stop nginx-proxy-acme
+    docker container rm -f nginx-proxy-acme
 }
 
 # ------------------------------------------------------------
