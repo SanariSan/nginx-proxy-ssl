@@ -105,7 +105,15 @@ sudo systemctl stop apache2
 
 6. To enable BBR optimisation proceed to option **6)**.
 
-.
+---
+
+#### Test (todo add to .sh)
+
+Run this oneliner to spin-up a simple nodejs pingback server, wait for ~1-2 minutes then visit your domain and verify it opens with https and returns Let's Encrypt SSL cert.
+
+```sh
+docker run -it --rm --name test -e "VIRTUAL_HOST=your.domain" -e "LETSENCRYPT_HOST=your.domain" --net inbound node:alpine sh -c 'echo "require(\"http\").createServer((_,res)=>{res.writeHead(200);res.end(\"OK\");}).listen(80)" | node'
+```
 
 ---
 
